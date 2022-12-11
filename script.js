@@ -85,8 +85,6 @@ const linkShortener = function(){
     let historyElementsArray = JSON.parse(localStorage.getItem(HISTORY_OBJECT_LOCAL_STORAGE_KEY)) || []
 
     function createLink(shortenedLink, firstLink){
-        //resultLink[0].innerText = shortenedLink
-        //previousLink[0].innerText = firstLink
 
         let historyObject =  createLinkHistoryObject(shortenedLink, firstLink)
         historyElementsArray.push(historyObject)
@@ -113,8 +111,8 @@ const linkShortener = function(){
         localStorage.setItem(HISTORY_OBJECT_LOCAL_STORAGE_KEY, JSON.stringify(historyElementsArray))
     }
     function render(){
+        clearElement(linksContainer)
         for(let i = historyElementsArray.length-1; i >= 0; i--){
-        //for(let i = 0; i < historyElementsArray.length; i++){
             
             let container = document.createElement("div")
             container.classList.add("prev-link-and-result")
@@ -127,11 +125,13 @@ const linkShortener = function(){
             let prevLink = document.createElement("div")
             prevLink.classList.add("prev-link")
             prevLink.innerText = historyElementsArray[i].longLink
+            prevLink.addEventListener('click', copyText)
             bothLinks.appendChild(prevLink)
 
             let resLink = document.createElement("div")
             resLink.classList.add("result-link")
             resLink.innerText = historyElementsArray[i].shortLink
+            resLink.addEventListener('click', copyText)
             bothLinks.appendChild(resLink)
 
             let deleteIcon = document.createElement("img")
@@ -141,6 +141,12 @@ const linkShortener = function(){
 
         }
         
+    }
+
+    function clearElement(element){
+        while(element.firstChild){
+            element.removeChild(element.firstChild)
+        }
     }
 
 
@@ -161,9 +167,6 @@ const linkShortener = function(){
 
 
 
-    //press on a link to copy it to the clipboard
-    previousLink.forEach(element => addEventListener('click', copyText))
-    resultLink.forEach(element => addEventListener('click', copyText))
 
     async function copyText(event){
         if(event.target.classList.contains('result-link') || event.target.classList.contains('prev-link')){
