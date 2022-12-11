@@ -2,14 +2,14 @@ const linkShortener = function(){
 
     const input = document.getElementById("inputLink")
     const shortenBtn = document.querySelector(".shortenBtn")
-    const linkContainer = document.getElementById("result-link")
     const message = document.querySelector(".message")
     const linkValidMessage = document.querySelector(".linkValid")
+    const linkContainer = document.querySelectorAll("result-link")
+    const previousLink = document.querySelectorAll(".prev-link")
 
+
+    //checks whether link is valid and outputs the result
     input.addEventListener("input", function checkLink(){
-        if(input.value == ""){
-            linkValidMessage.innerText = "Enter link"
-        }
         if(isValidUrl(input.value)){
             linkValidMessage.innerText = "Link is valid"
         } else{
@@ -17,27 +17,12 @@ const linkShortener = function(){
         }
     })
 
+    //on button click executes shortening function
     shortenBtn.addEventListener("click", function(){
         //shortenLink()
         shortenLinkAsync()
         message.innerText = "Click on the link to copy it "
     })
-
-    linkContainer.addEventListener('click', async (event) => {
-        if (!navigator.clipboard) {
-          // Clipboard API is not available
-          return
-        }
-        const textToCopy = event.target.innerText
-        try {
-          await navigator.clipboard.writeText(textToCopy)
-          message.innerText = "Copied to clipboard"
-          returnPreviousMesage()
-        } catch (err) {
-          console.error('Failed to copy!', err)
-        }
-    })
-
     
     function shortenLink(){
         let link = input.value
@@ -61,7 +46,7 @@ const linkShortener = function(){
                 .then(data => displayLink(data.result.full_short_link))    //then pass the received data to the function 
                 .catch(error => console.log(error))                        //catch any errors
         } else{
-            //message.innerHTML = "That is not a link"
+            return
         }
     }
 
@@ -87,10 +72,34 @@ const linkShortener = function(){
     }
 
 
-    
+
     function displayLink(shortenedLink){
         linkContainer.innerText = shortenedLink
     }
+
+
+
+    linkContainer.forEach(element => addEventListener('click', copyText))
+    previousLink.forEach(element => addEventListener('click', copyText))
+
+    async function copyText(event){
+        if (!navigator.clipboard) {
+            // Clipboard API is not available
+            return
+          }
+          const textToCopy = event.target.innerText
+          try {
+            await navigator.clipboard.writeText(textToCopy)
+            message.innerText = "Copied to clipboard"
+
+            returnPreviousMesage()
+          } catch (err) {
+            console.error('Failed to copy!', err)
+          }
+    }
+
+
+
 
     const isValidUrl = function(urlString){
 		let url;

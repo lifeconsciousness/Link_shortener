@@ -79,6 +79,10 @@ body {
   margin-bottom: 1em;
 }
 
+.prev-link {
+  cursor: pointer;
+}
+
 @media (max-width: 400px) {
   .prev-link-and-result {
     margin: 0 0.7em;
