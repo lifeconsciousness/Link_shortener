@@ -4,7 +4,7 @@ const linkShortener = function(){
     const shortenBtn = document.querySelector(".shortenBtn")
     const message = document.querySelector(".message")
     const linkValidMessage = document.querySelector(".linkValid")
-    const linkContainer = document.querySelectorAll("result-link")
+    const resultLink = document.querySelectorAll(".result-link")
     const previousLink = document.querySelectorAll(".prev-link")
 
 
@@ -74,33 +74,37 @@ const linkShortener = function(){
 
 
     function displayLink(shortenedLink){
-        linkContainer.innerText = shortenedLink
+        resultLink.innerText = shortenedLink
     }
 
+    
 
 
-    linkContainer.forEach(element => addEventListener('click', copyText))
+
+
+    //press on a link to copy it to the clipboard
     previousLink.forEach(element => addEventListener('click', copyText))
+    resultLink.forEach(element => addEventListener('click', copyText))
 
     async function copyText(event){
-        if (!navigator.clipboard) {
-            // Clipboard API is not available
-            return
-          }
-          const textToCopy = event.target.innerText
-          try {
-            await navigator.clipboard.writeText(textToCopy)
-            message.innerText = "Copied to clipboard"
-
-            returnPreviousMesage()
-          } catch (err) {
-            console.error('Failed to copy!', err)
-          }
+        if(event.target.classList.contains('result-link') || event.target.classList.contains('prev-link')){
+            
+            if (!navigator.clipboard) {
+                // Clipboard API is not available
+                return
+            }
+            const textToCopy = event.target.innerText
+            try {
+                await navigator.clipboard.writeText(textToCopy)
+                message.innerText = "Copied to clipboard"
+                returnPreviousMesage()
+            } catch (err) {
+                console.error('Failed to copy!', err)
+            }
+        }
     }
 
-
-
-
+    //check whether entered url is valid
     const isValidUrl = function(urlString){
 		let url;
         // if urlString argument is not a valid URL, code with throw an error that will be catched and return false
@@ -114,7 +118,7 @@ const linkShortener = function(){
 	    return url.protocol === "http:" || url.protocol === "https:"; 
 	}
 
-
+    //after some time change message back to it's normal value
     function returnPreviousMesage() {
         timeout = setTimeout(changeMessage, 700);
     }

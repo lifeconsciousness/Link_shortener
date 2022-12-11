@@ -135,16 +135,16 @@ body{
     opacity: 0.6;
 }
 
-#result-link{
+.result-link{
     font-size: 1.8em;
     color: rgb(71, 57, 192);
     transition: 0.3s;
 }
-#result-link:hover{
+.result-link:hover{
     color: rgb(107, 94, 221);
     cursor: pointer;
 }
-#result-link:active{
+.result-link:active{
     scale: 0.99;
 }
 
