@@ -5,27 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Short link</title>
+    <link rel="stylesheet" href="/css/style.css">
 
-    <!-- Use figma to style this app -->
-    <style>
-        #inputLink{
-            width: 900px;
-            height: 30px;
-        }
-    </style>
+    <!-- Make icon with long link on the left side, clickable short link on the right side with the "copy" button -->
+    <!-- Make list of previous links like accordion-->
+    <!-- Change shortening from input to pressing button -->
 </head>
 <body>
 
-    <!-- <input id="myInput"/>
-    <div onclick="document.getElementById('myInput').focus();">ggggggggggggg</div> -->
-
-
     
-    <label for="inputLink">Make link shorter</label>
-    <input type="url" name="inputLink" id="inputLink">
+    
+    <div class="shortener-container">
 
-    <div class="message">Click on the link to copy it </div>
-    <div id="link-container"></div>
+        <h2>Make a link shorter, instantaneously</h2>
+    
+        <div class="input-and-btn">
+            <input type="url" name="inputLink" id="inputLink" placeholder="Shorten your link">
+            <button class="shortenBtn">Shorten</button>
+        </div>
+        <div class="messages-container">
+            <div class="message">Click on the link to copy it </div>
+            <div class="linkValid"></div>
+        </div>
+
+
+        <div class="all-links-container">
+
+            <div class="prev-link-and-result">
+                <div class="result-and-delete-icon">
+                    <div class="prev-link">kkkkkkkkkkkkkkkkkkkkk Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, ad? Reprehenderit quam voluptatibus fugiat esse doloribus exercitationem ad minus totam vero velit voluptas vel, deserunt ipsam quibusdam minima ea earum!</div>
+                    <div id="result-link"> velit. Illo!</div>
+                </div>
+                <img src="/img/trash.png" class="trashBin">
+            </div>
+
+            <div class="prev-link-and-result">
+                <div class="result-and-delete-icon">
+                    <div class="prev-link">kkkkkkkkkkkkkkkkkkkkk</div>
+                    <div id="result-link">k</div>
+                </div>
+                <img src="/img/trash.png" class="trashBin">
+            </div>
+
+        </div>
+
+    </div>
+    
 
     <script src="/script.js"></script>
 </body>

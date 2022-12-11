@@ -1,13 +1,25 @@
 const linkShortener = function(){
 
     const input = document.getElementById("inputLink")
-    const linkContainer = document.getElementById("link-container")
+    const shortenBtn = document.querySelector(".shortenBtn")
+    const linkContainer = document.getElementById("result-link")
     const message = document.querySelector(".message")
+    const linkValidMessage = document.querySelector(".linkValid")
 
+    input.addEventListener("input", function checkLink(){
+        if(input.value == ""){
+            linkValidMessage.innerText = "Enter link"
+        }
+        if(isValidUrl(input.value)){
+            linkValidMessage.innerText = "Link is valid"
+        } else{
+            linkValidMessage.innerText = "Link is not valid"
+        }
+    })
 
-    input.addEventListener("input", function(){
-        shortenLink()
-        //shortenLinkAsync()
+    shortenBtn.addEventListener("click", function(){
+        //shortenLink()
+        shortenLinkAsync()
         message.innerText = "Click on the link to copy it "
     })
 
@@ -20,6 +32,7 @@ const linkShortener = function(){
         try {
           await navigator.clipboard.writeText(textToCopy)
           message.innerText = "Copied to clipboard"
+          returnPreviousMesage()
         } catch (err) {
           console.error('Failed to copy!', err)
         }
@@ -48,7 +61,7 @@ const linkShortener = function(){
                 .then(data => displayLink(data.result.full_short_link))    //then pass the received data to the function 
                 .catch(error => console.log(error))                        //catch any errors
         } else{
-            linkContainer.innerText = "That is not a link"
+            //message.innerHTML = "That is not a link"
         }
     }
 
@@ -57,14 +70,19 @@ const linkShortener = function(){
         let link = input.value
 
         if(isValidUrl(link)){
-            let response = await fetch(`https://api.shrtco.de/v2/shorten?url=${link}`)
-            if(response.ok){
-                const data = await response.json()
-                displayLink(data.result.full_short_link)
-            }    
+            //we can't catch an error without try/catch in async function
+            try {
+                let response = await fetch(`https://api.shrtco.de/v2/shorten?url=${link}`)
+                if(response.ok){
+                    const data = await response.json()
+                    displayLink(data.result.full_short_link)
+                }    
+            } catch (error){
+                console.log("Error:" + error)
+            }
         } 
         else{
-            linkContainer.innerText = "That is not a link"
+            return
         }
     }
 
@@ -87,7 +105,14 @@ const linkShortener = function(){
 	    return url.protocol === "http:" || url.protocol === "https:"; 
 	}
 
-    shortenLink()
+
+    function returnPreviousMesage() {
+        timeout = setTimeout(changeMessage, 700);
+    }
+    function changeMessage() {
+        message.innerText = "Click on the link to copy it "
+    }
+
 }
 linkShortener()
 
