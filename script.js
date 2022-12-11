@@ -114,6 +114,7 @@ const linkShortener = function(){
         clearElement(linksContainer)
         for(let i = historyElementsArray.length-1; i >= 0; i--){
             
+
             let container = document.createElement("div")
             container.classList.add("prev-link-and-result")
             linksContainer.appendChild(container)
@@ -137,10 +138,10 @@ const linkShortener = function(){
             let deleteIcon = document.createElement("img")
             deleteIcon.classList.add("trashBin")
             deleteIcon.src = "/img/trash.png"
+            deleteIcon.dataset.index = historyElementsArray[i].id
+            deleteIcon.addEventListener("click", deleteElement)
             container.appendChild(deleteIcon)
-
-        }
-        
+        }  
     }
 
     function clearElement(element){
@@ -151,15 +152,17 @@ const linkShortener = function(){
 
 
 
-    deleteIcons.forEach(icon => addEventListener("click", deleteElement))
-
-    //deleteIcons[1].dataset.index = 3
 
     function deleteElement(event){
         if(event.target.classList.contains("trashBin")){
+            let elementToDelete = event.target.dataset.index
+            console.log(elementToDelete)
 
+            historyElementsArray = historyElementsArray.filter(element => element.id != elementToDelete)
+            message.innerHTML = "Element deleted"
+            returnPreviousMesage()
+            saveAndRender()
         }
-        //console.log("delete " + event.target.dataset.index)
     }
 
 
@@ -209,7 +212,6 @@ const linkShortener = function(){
     }
 
     render()
-    console.log(historyElementsArray)
 }
 linkShortener()
 
