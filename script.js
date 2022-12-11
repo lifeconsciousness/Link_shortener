@@ -7,31 +7,28 @@ const linkShortener = function(){
 
     input.addEventListener("input", function(){
         shortenLink()
+        //shortenLinkAsync()
         message.innerText = "Click on the link to copy it "
     })
 
     linkContainer.addEventListener('click', async (event) => {
         if (!navigator.clipboard) {
-          // Clipboard API not available
+          // Clipboard API is not available
           return
         }
-        const text = event.target.innerText
+        const textToCopy = event.target.innerText
         try {
-          await navigator.clipboard.writeText(text)
+          await navigator.clipboard.writeText(textToCopy)
           message.innerText = "Copied to clipboard"
         } catch (err) {
           console.error('Failed to copy!', err)
         }
     })
 
-
-
-
-    
     
     function shortenLink(){
         let link = input.value
-    
+
         if(isValidUrl(link)){
             fetch(`https://api.shrtco.de/v2/shorten?url=${link}`, {
                 /* to send data back to API: method specification, 
@@ -54,6 +51,24 @@ const linkShortener = function(){
             linkContainer.innerText = "That is not a link"
         }
     }
+
+    //alternative method of handling promises
+    async function shortenLinkAsync(){
+        let link = input.value
+
+        if(isValidUrl(link)){
+            let response = await fetch(`https://api.shrtco.de/v2/shorten?url=${link}`)
+            if(response.ok){
+                const data = await response.json()
+                displayLink(data.result.full_short_link)
+            }    
+        } 
+        else{
+            linkContainer.innerText = "That is not a link"
+        }
+    }
+
+
     
     function displayLink(shortenedLink){
         linkContainer.innerText = shortenedLink
