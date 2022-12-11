@@ -4,9 +4,11 @@ const linkShortener = function(){
     const shortenBtn = document.querySelector(".shortenBtn")
     const message = document.querySelector(".message")
     const linkValidMessage = document.querySelector(".linkValid")
+    const linksContainer = document.querySelector(".all-links-container")
     const resultLink = document.querySelectorAll(".result-link")
     const previousLink = document.querySelectorAll(".prev-link")
     const deleteIcons = document.querySelectorAll(".trashBin")
+    
 
 
     //checks whether link is valid and outputs the result
@@ -83,16 +85,14 @@ const linkShortener = function(){
     let historyElementsArray = JSON.parse(localStorage.getItem(HISTORY_OBJECT_LOCAL_STORAGE_KEY)) || []
 
     function createLink(shortenedLink, firstLink){
-        resultLink[0].innerText = shortenedLink
-        previousLink[0].innerText = firstLink
+        //resultLink[0].innerText = shortenedLink
+        //previousLink[0].innerText = firstLink
 
         let historyObject =  createLinkHistoryObject(shortenedLink, firstLink)
         historyElementsArray.push(historyObject)
 
         historyElementIndex++
-        console.log(historyElementsArray)
-        save()
-        render()
+        saveAndRender()
     }
 
     function createLinkHistoryObject(shortenedLink, firstLink){
@@ -103,13 +103,43 @@ const linkShortener = function(){
         }
     }
 
-
+    function saveAndRender(){
+        save()
+        render()
+    }
 
     function save(){
         localStorage.setItem(INDEX_LOCAL_STORAGE_KEY, historyElementIndex)
         localStorage.setItem(HISTORY_OBJECT_LOCAL_STORAGE_KEY, JSON.stringify(historyElementsArray))
     }
     function render(){
+        for(let i = historyElementsArray.length-1; i >= 0; i--){
+        //for(let i = 0; i < historyElementsArray.length; i++){
+            
+            let container = document.createElement("div")
+            container.classList.add("prev-link-and-result")
+            linksContainer.appendChild(container)
+
+            let bothLinks = document.createElement("div")
+            bothLinks.classList.add("bothLinks")
+            container.appendChild(bothLinks)
+
+            let prevLink = document.createElement("div")
+            prevLink.classList.add("prev-link")
+            prevLink.innerText = historyElementsArray[i].longLink
+            bothLinks.appendChild(prevLink)
+
+            let resLink = document.createElement("div")
+            resLink.classList.add("result-link")
+            resLink.innerText = historyElementsArray[i].shortLink
+            bothLinks.appendChild(resLink)
+
+            let deleteIcon = document.createElement("img")
+            deleteIcon.classList.add("trashBin")
+            deleteIcon.src = "/img/trash.png"
+            container.appendChild(deleteIcon)
+
+        }
         
     }
 
@@ -117,9 +147,12 @@ const linkShortener = function(){
 
     deleteIcons.forEach(icon => addEventListener("click", deleteElement))
 
-    deleteIcons[1].dataset.index = 3
+    //deleteIcons[1].dataset.index = 3
 
     function deleteElement(event){
+        if(event.target.classList.contains("trashBin")){
+
+        }
         //console.log("delete " + event.target.dataset.index)
     }
 
@@ -172,6 +205,8 @@ const linkShortener = function(){
         message.innerText = "Click on the link to copy it "
     }
 
+    render()
+    console.log(historyElementsArray)
 }
 linkShortener()
 
