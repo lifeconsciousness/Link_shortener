@@ -16,6 +16,9 @@ const linkShortener = function(){
         if(isValidUrl(input.value)){
             linkValidMessage.innerText = "Link is valid"
         } 
+        else if(input.value == ""){
+            linkValidMessage.innerText = "Field is empty"
+        } 
         else{
             linkValidMessage.innerText = "Link is not valid"
         }
@@ -23,7 +26,9 @@ const linkShortener = function(){
 
     //on button click executes shortening function
     shortenBtn.addEventListener("click", function(){
-
+        if(input.value == ""){
+            linkValidMessage.innerText = "Field is empty"
+        } 
         if(input.value.includes("shrtco.de")){
             linkValidMessage.innerText = "You can't make this link shorter"
         } 
@@ -33,9 +38,9 @@ const linkShortener = function(){
             returnPreviousMesage()
             return
         } else{
-            shortenLink()
+            shortenLink()           //both functions can be used
+            //shortenLinkAsync()
         }
-        //shortenLinkAsync()
         message.innerText = "Click on the link to copy it "
     })
 
@@ -78,7 +83,7 @@ const linkShortener = function(){
         }
     }
 
-    //alternative method of handling promises
+    //alternative method of handling promises/api fetch
     async function shortenLinkAsync(){
         let link = input.value
 
@@ -88,7 +93,7 @@ const linkShortener = function(){
                 let response = await fetch(`https://api.shrtco.de/v2/shorten?url=${link}`)
                 if(response.ok){
                     const data = await response.json()
-                    createRecord(data.result.full_short_link)
+                    createRecord(data.result.full_short_link, link)
                 }    
             } catch (error){
                 console.log("Error:" + error)
@@ -100,18 +105,23 @@ const linkShortener = function(){
     }
 
 
-
-
-
+    //keys for the local storage
     const INDEX_LOCAL_STORAGE_KEY = 'indexKey'
     const HISTORY_OBJECT_LOCAL_STORAGE_KEY = 'historyObjectKey'
 
+    //onload it either gets value from storage or assigns 0/empty array
     let historyElementIndex = JSON.parse(localStorage.getItem(INDEX_LOCAL_STORAGE_KEY)) || 0
     let historyElementsArray = JSON.parse(localStorage.getItem(HISTORY_OBJECT_LOCAL_STORAGE_KEY)) || []
 
+    //creates history record object, pushes it to the array
     function createRecord(shortenedLink, firstLink){
+        let dateObj = new Date()
+        let currentTime
+        if(dateObj.getMinutes() <=9){
+            currentTime = dateObj.getHours() + ":0" + dateObj.getMinutes()
+        } else { currentTime = dateObj.getHours() + ":" + dateObj.getMinutes() }
 
-        let historyObject =  createLinkHistoryObject(shortenedLink, firstLink)
+        let historyObject =  createLinkHistoryObject(shortenedLink, firstLink, currentTime)
         historyElementsArray.push(historyObject)
 
         historyElementIndex++
@@ -120,11 +130,13 @@ const linkShortener = function(){
         saveAndRender()
     }
 
-    function createLinkHistoryObject(shortenedLink, firstLink){
+    //returns an object with the unique id, old link, and shortened one
+    function createLinkHistoryObject(shortenedLink, firstLink, currentTime){
         return {
             id: historyElementIndex,
             shortLink: shortenedLink,
-            longLink: firstLink
+            longLink: firstLink,
+            time: currentTime
         }
     }
 
@@ -137,6 +149,8 @@ const linkShortener = function(){
         localStorage.setItem(INDEX_LOCAL_STORAGE_KEY, historyElementIndex)
         localStorage.setItem(HISTORY_OBJECT_LOCAL_STORAGE_KEY, JSON.stringify(historyElementsArray))
     }
+
+    //first the function clears links container, then creates DOM elements and assings array objects values to them
     function render(){
         clearElement(linksContainer)
         for(let i = historyElementsArray.length-1; i >= 0; i--){
@@ -176,23 +190,17 @@ const linkShortener = function(){
 
             let date = document.createElement("p")
             date.classList.add("date")
-            let dateObj = new Date()
-            let currentTime
-            if(dateObj.getMinutes() <=9){
-                currentTime = dateObj.getHours() + ":0" + dateObj.getMinutes()
-            } else { currentTime = dateObj.getHours() + ":" + dateObj.getMinutes()}
-            date.innerText = currentTime
+            date.innerText = historyElementsArray[i].time
             dateAndDelete.appendChild(date)
         }  
     }
+
 
     function clearElement(element){
         while(element.firstChild){
             element.removeChild(element.firstChild)
         }
     }
-
-
 
 
     function deleteElement(event){
@@ -206,12 +214,7 @@ const linkShortener = function(){
         }
     }
 
-
-
-
-
-
-
+    //navigator returns promise so function to copy text is asynchronous
     async function copyText(event){
         if(event.target.classList.contains('result-link') || event.target.classList.contains('prev-link')){
             
@@ -246,7 +249,7 @@ const linkShortener = function(){
 
     //after some time change message back to it's normal value
     function returnPreviousMesage() {
-        timeout = setTimeout(changeMessage, 700);
+        timeout = setTimeout(changeMessage, 850);
     }
     function changeMessage() {
         message.innerText = "Click on the link to copy it "
@@ -265,6 +268,4 @@ const linkShortener = function(){
     render()
 }
 linkShortener()
-
-
 
