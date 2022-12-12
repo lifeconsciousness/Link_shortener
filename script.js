@@ -15,13 +15,18 @@ const linkShortener = function(){
         checkButtonState()
         if(isValidUrl(input.value)){
             linkValidMessage.innerText = "Link is valid"
-        } else{
+        } 
+        else{
             linkValidMessage.innerText = "Link is not valid"
         }
     })
 
     //on button click executes shortening function
     shortenBtn.addEventListener("click", function(){
+
+        if(input.value.includes("shrtco.de")){
+            linkValidMessage.innerText = "You can't make this link shorter"
+        } 
         if(checkButtonState()){
 
             copyLinkToClipboard()
@@ -34,6 +39,7 @@ const linkShortener = function(){
         message.innerText = "Click on the link to copy it "
     })
 
+    //copied link that is currently in input field. uses after pressing "copy" button
     async function copyLinkToClipboard(){
         const textToCopy = historyElementsArray[historyElementsArray.length-1].shortLink
             try {
@@ -45,7 +51,7 @@ const linkShortener = function(){
             }
     }
 
-    
+    //sends link to API and passes the received data to the createRecord function
     function shortenLink(){
         let link = input.value
 
@@ -65,7 +71,7 @@ const linkShortener = function(){
                 }) */
             })
                 .then(res => res.json())                                        //first convert the data from json string to js object
-                .then(data => createLink(data.result.full_short_link, link))          //then pass the received data to the function 
+                .then(data => createRecord(data.result.full_short_link, link))          //then pass the received data to the function 
                 .catch(error => console.log(error))                             //catch any errors
         } else{
             return
@@ -82,7 +88,7 @@ const linkShortener = function(){
                 let response = await fetch(`https://api.shrtco.de/v2/shorten?url=${link}`)
                 if(response.ok){
                     const data = await response.json()
-                    createLink(data.result.full_short_link)
+                    createRecord(data.result.full_short_link)
                 }    
             } catch (error){
                 console.log("Error:" + error)
@@ -103,7 +109,7 @@ const linkShortener = function(){
     let historyElementIndex = JSON.parse(localStorage.getItem(INDEX_LOCAL_STORAGE_KEY)) || 0
     let historyElementsArray = JSON.parse(localStorage.getItem(HISTORY_OBJECT_LOCAL_STORAGE_KEY)) || []
 
-    function createLink(shortenedLink, firstLink){
+    function createRecord(shortenedLink, firstLink){
 
         let historyObject =  createLinkHistoryObject(shortenedLink, firstLink)
         historyElementsArray.push(historyObject)
