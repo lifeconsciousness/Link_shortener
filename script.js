@@ -1,18 +1,18 @@
 const linkShortener = function(){
 
+    //DOM elements declarations 
     const input = document.getElementById("inputLink")
     const shortenBtn = document.querySelector(".shortenBtn")
     const message = document.querySelector(".message")
     const linkValidMessage = document.querySelector(".linkValid")
     const linksContainer = document.querySelector(".all-links-container")
-    const resultLink = document.querySelectorAll(".result-link")
-    const previousLink = document.querySelectorAll(".prev-link")
-    const deleteIcons = document.querySelectorAll(".trashBin")
-    
+    let buttonCanCopy = false
 
 
-    //checks whether link is valid and outputs the result
+    //checks whether a link is valid and outputs the result
     input.addEventListener("input", function checkLink(){
+        buttonCanCopy = false
+        checkButtonState()
         if(isValidUrl(input.value)){
             linkValidMessage.innerText = "Link is valid"
         } else{
@@ -22,10 +22,29 @@ const linkShortener = function(){
 
     //on button click executes shortening function
     shortenBtn.addEventListener("click", function(){
-        shortenLink()
+        if(checkButtonState()){
+            message.innerText = "You already shortened that link"
+            copyLinkToClipboard()
+            returnPreviousMesage()
+            return
+        } else{
+            shortenLink()
+        }
         //shortenLinkAsync()
         message.innerText = "Click on the link to copy it "
     })
+
+    async function copyLinkToClipboard(){
+        const textToCopy = historyElementsArray[historyElementsArray.length-1].shortLink
+            try {
+                await navigator.clipboard.writeText(textToCopy)
+                message.innerText = "Copied to clipboard"
+                returnPreviousMesage()
+            } catch (err) {
+                console.error('Failed to copy!', err)
+            }
+    }
+
     
     function shortenLink(){
         let link = input.value
@@ -90,6 +109,8 @@ const linkShortener = function(){
         historyElementsArray.push(historyObject)
 
         historyElementIndex++
+        buttonCanCopy = true
+        checkButtonState()
         saveAndRender()
     }
 
@@ -156,7 +177,6 @@ const linkShortener = function(){
     function deleteElement(event){
         if(event.target.classList.contains("trashBin")){
             let elementToDelete = event.target.dataset.index
-            console.log(elementToDelete)
 
             historyElementsArray = historyElementsArray.filter(element => element.id != elementToDelete)
             message.innerHTML = "Element deleted"
@@ -209,6 +229,16 @@ const linkShortener = function(){
     }
     function changeMessage() {
         message.innerText = "Click on the link to copy it "
+    }
+
+    function checkButtonState(){
+        if(buttonCanCopy){
+            shortenBtn.innerText = "Copy"
+            return true
+        } else{
+            shortenBtn.innerText = "Shorten"
+            return false
+        }
     }
 
     render()

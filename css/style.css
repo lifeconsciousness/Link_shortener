@@ -24,7 +24,7 @@ body {
   width: 90%;
   height: 40px;
   font-size: 1em;
-  outline: none;
+  border: 1px solid black;
   border-radius: 20px;
   padding-left: 0.3em;
 }
@@ -57,7 +57,7 @@ body {
 }
 
 .all-links-container {
-  word-wrap: break-word;
+  word-wrap: break-all;
   width: 1000px;
   max-width: 100%;
   min-width: 10%;
@@ -89,11 +89,11 @@ body {
     margin: 0 0.7em;
     margin-bottom: 0.7em;
   }
-  #result-link {
+  .result-link {
     font-size: 1.2em !important;
   }
   .prev-link {
-    font-size: 0.6em;
+    font-size: 0.8em;
   }
   .input-and-btn {
     display: flex;
@@ -111,6 +111,7 @@ body {
   }
   .trashBin {
     margin-left: 5px;
+    margin-right: 0px;
   }
   .messages-container {
     display: flex;
@@ -143,6 +144,7 @@ body {
   transition: 0.2s;
   cursor: pointer;
   margin-left: 15px;
+  margin-right: 8px;
 }
 
 .trashBin:hover {
