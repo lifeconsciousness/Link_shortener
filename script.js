@@ -23,7 +23,7 @@ const linkShortener = function(){
     //on button click executes shortening function
     shortenBtn.addEventListener("click", function(){
         if(checkButtonState()){
-            message.innerText = "You already shortened that link"
+
             copyLinkToClipboard()
             returnPreviousMesage()
             return
@@ -156,12 +156,27 @@ const linkShortener = function(){
             resLink.addEventListener('click', copyText)
             bothLinks.appendChild(resLink)
 
+            let dateAndDelete = document.createElement("div")
+            dateAndDelete.classList.add("date-and-delete")
+            container.appendChild(dateAndDelete)
+
+
             let deleteIcon = document.createElement("img")
             deleteIcon.classList.add("trashBin")
             deleteIcon.src = "/img/trash.png"
             deleteIcon.dataset.index = historyElementsArray[i].id
             deleteIcon.addEventListener("click", deleteElement)
-            container.appendChild(deleteIcon)
+            dateAndDelete.appendChild(deleteIcon)
+
+            let date = document.createElement("p")
+            date.classList.add("date")
+            let dateObj = new Date()
+            let currentTime
+            if(dateObj.getMinutes() <=9){
+                currentTime = dateObj.getHours() + ":0" + dateObj.getMinutes()
+            } else { currentTime = dateObj.getHours() + ":" + dateObj.getMinutes()}
+            date.innerText = currentTime
+            dateAndDelete.appendChild(date)
         }  
     }
 

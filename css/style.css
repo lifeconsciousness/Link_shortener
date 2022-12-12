@@ -154,4 +154,12 @@ body {
 .result-and-delete-icon {
   display: flex;
   flex-direction: column;
+}
+
+.date {
+  position: relative;
+  font-size: 0.9em;
+  text-align: center;
+  margin: 0;
+  margin-left: 0.54em;
 }/*# sourceMappingURL=style.css.map */

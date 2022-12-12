@@ -67,7 +67,6 @@ body{
 }
 
 
-
 .all-links-container{
     word-wrap: break-all;
     width: 1000px;
@@ -166,4 +165,13 @@ body{
     display: flex;
     flex-direction: column;
     
+}
+
+
+.date{
+    position: relative;
+    font-size: .9em;
+    text-align: center;
+    margin: 0;
+    margin-left: .54em;
 }
