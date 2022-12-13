@@ -102,6 +102,7 @@ body {
   }
   .input-and-btn input {
     width: 96%;
+    margin-bottom: 7px;
   }
   .input-and-btn button {
     height: 100%;
@@ -158,8 +159,35 @@ body {
 
 .date {
   position: relative;
-  font-size: 0.9em;
+  font-size: 0.8em;
   text-align: center;
   margin: 0;
   margin-left: 0.54em;
+}
+
+.container-animation {
+  -webkit-animation: containerAnimation 0.93s ease-in-out;
+          animation: containerAnimation 0.93s ease-in-out;
+}
+
+@-webkit-keyframes containerAnimation {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes containerAnimation {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
 }/*# sourceMappingURL=style.css.map */

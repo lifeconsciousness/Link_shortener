@@ -112,6 +112,7 @@ body{
         margin-top: 1em;
         input{
             width: 96%;
+            margin-bottom: 7px;
         }
         button{
             height: 100%;
@@ -167,11 +168,25 @@ body{
     
 }
 
-
 .date{
     position: relative;
-    font-size: .9em;
+    font-size: .8em;
     text-align: center;
     margin: 0;
     margin-left: .54em;
+}
+
+.container-animation{
+    animation: containerAnimation 0.93s ease-in-out;
+}
+
+@keyframes containerAnimation{
+    0%{
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0px);
+        opacity: 1;
+    }
 }

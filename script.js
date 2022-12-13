@@ -7,6 +7,7 @@ const linkShortener = function(){
     const linkValidMessage = document.querySelector(".linkValid")
     const linksContainer = document.querySelector(".all-links-container")
     let buttonCanCopy = false
+    let playAnimationAfterShortening = false
 
 
     //checks whether a link is valid and outputs the result
@@ -118,14 +119,16 @@ const linkShortener = function(){
         let dateObj = new Date()
         let currentTime
         if(dateObj.getMinutes() <=9){
-            currentTime = dateObj.getHours() + ":0" + dateObj.getMinutes()
-        } else { currentTime = dateObj.getHours() + ":" + dateObj.getMinutes() }
+            ///add date and year
+            currentTime = dateObj.getHours() + ":0" + dateObj.getMinutes() + "\n" + dateObj.getMonth() + "." + dateObj.getDay()  + "." + dateObj.getFullYear().toString().substring(2) 
+        } else { currentTime = dateObj.getHours() + ":" + dateObj.getMinutes() + "\n" + dateObj.getMonth() + "." + dateObj.getDay()  + "." + dateObj.getFullYear().toString().substring(2) }
 
         let historyObject =  createLinkHistoryObject(shortenedLink, firstLink, currentTime)
         historyElementsArray.push(historyObject)
 
         historyElementIndex++
         buttonCanCopy = true
+        playAnimationAfterShortening = true
         checkButtonState()
         saveAndRender()
     }
@@ -150,6 +153,24 @@ const linkShortener = function(){
         localStorage.setItem(HISTORY_OBJECT_LOCAL_STORAGE_KEY, JSON.stringify(historyElementsArray))
     }
 
+
+
+    /*function addTodoTask(text) {
+        if (text && text != ' ') {
+            let toDo = `<li class="todoitem" data-sort="${addCounter}">
+            <input type="checkbox"  class="todo" name="todo" value="todo">
+            <span class="todo-text">${text} <div class="delete"></div></span>
+            </li>`
+    
+            addCounter++;
+    
+            todoslist.innerHTML += toDo;
+    
+            todoslist.addEventListener('click', lineThrough);
+    
+        }
+    } */
+
     //first the function clears links container, then creates DOM elements and assings array objects values to them
     function render(){
         clearElement(linksContainer)
@@ -158,6 +179,10 @@ const linkShortener = function(){
 
             let container = document.createElement("div")
             container.classList.add("prev-link-and-result")
+            if(playAnimationAfterShortening){
+                container.classList.add("container-animation")
+                playAnimationAfterShortening = false
+            }
             linksContainer.appendChild(container)
 
             let bothLinks = document.createElement("div")
