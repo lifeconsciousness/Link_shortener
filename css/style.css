@@ -65,7 +65,6 @@ body {
   border-radius: 14px;
   padding: 1.4em 0;
   margin-bottom: 3em;
-  transition: height 1s linear;
 }
 
 .prev-link-and-result {
@@ -78,7 +77,12 @@ body {
   padding: 0.5em;
   border-radius: 20px;
   margin-bottom: 1em;
-  transition: all 0.8s linear;
+  transition: 0.3s;
+}
+
+.prev-link-and-result:hover {
+  scale: 1.008;
+  box-shadow: 6px 7px 11px rgba(0, 0, 0, 0.275);
 }
 
 .prev-link {
@@ -167,8 +171,8 @@ body {
 }
 
 .container-animation {
-  -webkit-animation: containerAnimation 0.93s ease-in-out forwards;
-          animation: containerAnimation 0.93s ease-in-out forwards;
+  -webkit-animation: containerAnimation 0.8s ease-in-out forwards;
+          animation: containerAnimation 0.8s ease-in-out forwards;
 }
 
 @-webkit-keyframes containerAnimation {
@@ -193,8 +197,8 @@ body {
   }
 }
 .delete-animation {
-  -webkit-animation: deleteAnimation 0.8s ease-in-out forwards;
-          animation: deleteAnimation 0.8s ease-in-out forwards;
+  -webkit-animation: deleteAnimation 0.6s ease-in-out forwards;
+          animation: deleteAnimation 0.6s ease-in-out forwards;
 }
 
 @-webkit-keyframes deleteAnimation {

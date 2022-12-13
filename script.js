@@ -219,7 +219,7 @@ const linkShortener = function(){
             date.classList.add("date")
             date.innerText = historyElementsArray[i].time
             dateAndDelete.appendChild(date)
-        }  
+        } 
     }
 
 
@@ -243,7 +243,7 @@ const linkShortener = function(){
     }
 
     function deleteAnimationDelay(delEl) {
-        timeout = setTimeout(function(){ deleteAfterDelay(delEl) }, 800);
+        timeout = setTimeout(function(){ deleteAfterDelay(delEl) }, 650);
     }
     function deleteAfterDelay(elementToDelete) {
         historyElementsArray = historyElementsArray.filter(element => element.id != elementToDelete)
