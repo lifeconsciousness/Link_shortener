@@ -62,10 +62,10 @@ body {
   max-width: 100%;
   min-width: 10%;
   background-color: rgba(87, 128, 225, 0.841);
-  min-height: 60px;
   border-radius: 14px;
   padding: 1.4em 0;
   margin-bottom: 3em;
+  transition: height 1s linear;
 }
 
 .prev-link-and-result {
@@ -78,6 +78,7 @@ body {
   padding: 0.5em;
   border-radius: 20px;
   margin-bottom: 1em;
+  transition: all 0.8s linear;
 }
 
 .prev-link {
@@ -166,8 +167,8 @@ body {
 }
 
 .container-animation {
-  -webkit-animation: containerAnimation 0.93s ease-in-out;
-          animation: containerAnimation 0.93s ease-in-out;
+  -webkit-animation: containerAnimation 0.93s ease-in-out forwards;
+          animation: containerAnimation 0.93s ease-in-out forwards;
 }
 
 @-webkit-keyframes containerAnimation {
@@ -189,5 +190,29 @@ body {
   100% {
     transform: translateX(0px);
     opacity: 1;
+  }
+}
+.delete-animation {
+  -webkit-animation: deleteAnimation 0.8s ease-in-out forwards;
+          animation: deleteAnimation 0.8s ease-in-out forwards;
+}
+
+@-webkit-keyframes deleteAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+}
+
+@keyframes deleteAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100px);
+    opacity: 0;
   }
 }/*# sourceMappingURL=style.css.map */

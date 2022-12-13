@@ -126,6 +126,8 @@ const linkShortener = function(){
         let historyObject =  createLinkHistoryObject(shortenedLink, firstLink, currentTime)
         historyElementsArray.push(historyObject)
 
+        console.log(linksContainer.offsetHeight)
+
         historyElementIndex++
         buttonCanCopy = true
         playAnimationAfterShortening = true
@@ -227,16 +229,41 @@ const linkShortener = function(){
         }
     }
 
-
+    //make render function not to render element that was deleted
     function deleteElement(event){
         if(event.target.classList.contains("trashBin")){
             let elementToDelete = event.target.dataset.index
+            
 
-            historyElementsArray = historyElementsArray.filter(element => element.id != elementToDelete)
-            message.innerHTML = "Element deleted"
-            returnPreviousMesage()
-            saveAndRender()
+            let parentalContainer = upTo(event.target, "prev-link-and-result")
+            parentalContainer.classList.add("delete-animation")
+            
+            deleteAnimationDelay(elementToDelete)
         }
+    }
+
+    function deleteAnimationDelay(delEl) {
+        timeout = setTimeout(function(){ deleteAfterDelay(delEl) }, 800);
+    }
+    function deleteAfterDelay(elementToDelete) {
+        historyElementsArray = historyElementsArray.filter(element => element.id != elementToDelete)
+        message.innerHTML = "Element deleted"
+        returnPreviousMesage()
+        saveAndRender()
+    }
+
+    //searches for the DOM element higher in ierarchy
+    function upTo(el, tagName) {
+        //tagName = tagName.toLowerCase();
+      
+        while (el && el.parentNode) {
+          el = el.parentNode;
+          //if (el.tagName && el.tagName.toLowerCase() == tagName) {
+          if (el.classList.contains(tagName)) {
+            return el;
+          }
+        }
+        return null
     }
 
     //navigator returns promise so function to copy text is asynchronous
@@ -279,6 +306,8 @@ const linkShortener = function(){
     function changeMessage() {
         message.innerText = "Click on the link to copy it "
     }
+
+    
 
     function checkButtonState(){
         if(buttonCanCopy){
