@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Short link</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
 
     
     <!-- Add zero to the month in date -->
@@ -13,11 +13,13 @@
 </head>
 <body>
 
-    
+    <div class="app-background bg-image"></div>
     
     <div class="shortener-container">
 
-        <h2>Make a link shorter, instantaneously</h2>
+        <div class="slogan-container">
+            <h2>Make a link shorter, instantaneously</h2>
+        </div>
     
         <div class="input-and-btn">
             <input type="url" name="inputLink" id="inputLink" placeholder="Shorten your link">
@@ -26,7 +28,7 @@
 
         <div class="messages-container">
             <div class="message">Click on the link to copy it </div>
-            <div class="linkValid"></div>
+            <div class="linkValid">Field is empty</div>
         </div>
 
         <div class="all-links-container">
@@ -46,6 +48,6 @@
     </div>
     
 
-    <script src="/script.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>

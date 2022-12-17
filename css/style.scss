@@ -19,6 +19,42 @@ body{
     padding: 0 1em;
 }
 
+.slogan-container{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    h2{
+        position: relative;
+        color: white;
+        font-size: 33px;
+        text-align: center;
+
+        //box-shadow: 6px 6px 10px rgba(32, 32, 32, 0.408);
+        padding: .1em .2em;
+        border-radius: 5px;
+        margin-bottom: 0em;
+    }
+}
+
+.app-background{
+    aspect-ratio: 900/600;
+    width: 100%;
+
+    background-repeat: repeat;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    z-index: -3;
+}
+
+.bg-image{
+    background-image: url("/img/stacked-waves-1.svg");
+}
+
+
+
+
 .input-and-btn{
     margin-bottom: 1.3em;
     margin-top: 3em;
@@ -59,9 +95,14 @@ body{
     display: flex;
     font-size: 1.2em;
     justify-content: space-between;
+    //color: rgb(42, 38, 38);
+    color: rgb(255, 247, 251);
 }
 
 .message{
+    margin-bottom: .3em;
+}
+.linkValid{
     margin-bottom: .3em;
 }
 
@@ -108,7 +149,7 @@ body{
         margin-bottom: 0.7em;
     }
     .result-link{
-        font-size: 1.2em !important
+        font-size: 1.36em !important
     }
     .prev-link{
         font-size: .8em;
@@ -120,6 +161,7 @@ body{
         input{
             width: 96%;
             margin-bottom: 7px;
+            font-size: 14px;
         }
         button{
             height: 100%;
@@ -136,7 +178,53 @@ body{
         display: flex;
         font-size: .8em;
         justify-content: space-between;
+        color: black;
     }
+    .app-background{
+        aspect-ratio: 900/1900;
+    }
+    h2{
+        font-size:22px !important;
+        box-shadow: 0px 0px 11px rgba(0, 0, 0, 0) !important;
+        margin-bottom: 0em;
+    }
+    
+}
+@media (min-width: 400px) and (max-width:900px){
+    .app-background{
+        aspect-ratio: 900/1000;
+    }
+    h2{
+        box-shadow: 0px 0px 11px rgba(0, 0, 0, 0) !important;
+        margin-bottom: 0em;
+    }
+}
+@media (max-width: 290px)  {
+    .prev-link-and-result{
+        margin: 0 0.7em;
+        margin-bottom: 0.7em;
+    }
+    .result-link{
+        font-size: 1.1em !important
+    }
+    .prev-link{
+        font-size: .6em;
+    }
+
+    .trashBin{
+        width: 20px !important;
+        //margin-left: 5px;
+        margin-right: 0px;
+    }
+    .date{
+        font-size: 9px !important;
+    }
+    .messages-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
 }
 
 .prev-link{
@@ -166,7 +254,7 @@ body{
     margin-right: 8px;
 }
 .trashBin:hover{
-    scale: 1.1;
+    scale: 1.01;
 }
 
 .result-and-delete-icon{

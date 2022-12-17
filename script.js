@@ -116,23 +116,33 @@ const linkShortener = function(){
 
     //creates history record object, pushes it to the array
     function createRecord(shortenedLink, firstLink){
-        let dateObj = new Date()
-        let currentTime
-        if(dateObj.getMinutes() <=9){
-            ///add date and year
-            currentTime = dateObj.getHours() + ":0" + dateObj.getMinutes() + "\n" + dateObj.getMonth() + "." + dateObj.getDay()  + "." + dateObj.getFullYear().toString().substring(2) 
-        } else { currentTime = dateObj.getHours() + ":" + dateObj.getMinutes() + "\n" + dateObj.getMonth() + "." + dateObj.getDay()  + "." + dateObj.getFullYear().toString().substring(2) }
+        let currentTime = getTimeAndDate()
 
         let historyObject =  createLinkHistoryObject(shortenedLink, firstLink, currentTime)
         historyElementsArray.push(historyObject)
-
-        console.log(linksContainer.offsetHeight)
+        //console.log(linksContainer.offsetHeight)
 
         historyElementIndex++
         buttonCanCopy = true
         playAnimationAfterShortening = true
+        
         checkButtonState()
         saveAndRender()
+    }
+
+    function getTimeAndDate(){
+        let dateObj = new Date()
+        let currentTime
+        let zeroBeforeMinutes
+        let zeroBeforeMonths
+        if(dateObj.getMinutes()<=9){ zeroBeforeMinutes = ":0"}
+        else { zeroBeforeMinutes = ":"}
+        if(dateObj.getMonth()<=9){ zeroBeforeMonths = "0"}
+        else { zeroBeforeMonths = ""}
+
+        currentTime = `${dateObj.getHours()}${zeroBeforeMinutes}${dateObj.getMinutes()}\n${dateObj.getDay()}.${zeroBeforeMonths}${dateObj.getMonth()}.${dateObj.getFullYear().toString().substring(2)}`
+
+        return currentTime
     }
 
     //returns an object with the unique id, old link, and shortened one
@@ -210,7 +220,7 @@ const linkShortener = function(){
 
             let deleteIcon = document.createElement("img")
             deleteIcon.classList.add("trashBin")
-            deleteIcon.src = "/img/trash.png"
+            deleteIcon.src = "./img/trash.png"
             deleteIcon.dataset.index = historyElementsArray[i].id
             deleteIcon.addEventListener("click", deleteElement)
             dateAndDelete.appendChild(deleteIcon)
