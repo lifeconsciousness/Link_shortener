@@ -215,17 +215,23 @@ body {
     transform: translateY(-190px);
   }
 }
+.bothLinks {
+  width: 60%;
+}
+
 .prev-link {
   cursor: pointer;
   margin-right: 2em;
   margin-bottom: 0.3em;
   opacity: 0.6;
+  word-wrap: break-word;
 }
 
 .result-link {
   font-size: 1.8em;
   color: rgb(71, 57, 192);
   transition: 0.3s;
+  word-wrap: break-word;
 }
 
 .result-link:hover {

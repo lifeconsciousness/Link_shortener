@@ -253,6 +253,10 @@ body{
 
 ///////////////////inside of a link history record containers////////////////////
 
+.bothLinks{
+    width: 60%;
+}
+
 .prev-link{
     cursor: pointer;
     margin-right: 2em;
@@ -266,6 +270,7 @@ body{
     color: rgb(71, 57, 192);
     transition: 0.3s;
     word-wrap: break-word;
+
 }
 .result-link:hover{
     color: rgb(107, 94, 221);
