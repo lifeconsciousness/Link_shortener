@@ -39,7 +39,7 @@ body {
 }
 
 .bg-image {
-  background-image: url("/img/stacked-waves-1.svg");
+  background-image: url("./img/stacked-waves-1.svg");
 }
 
 .input-and-btn {
@@ -163,6 +163,7 @@ body {
   }
   .app-background {
     aspect-ratio: 900/1900;
+    transform: translateY(-300px);
   }
   h2 {
     font-size: 22px !important;
@@ -173,6 +174,7 @@ body {
 @media (min-width: 400px) and (max-width: 900px) {
   .app-background {
     aspect-ratio: 900/1000;
+    transform: translateY(-200px);
   }
   h2 {
     box-shadow: 0px 0px 11px rgba(0, 0, 0, 0) !important;
@@ -201,6 +203,24 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+}
+@media (min-width: 400px) and (max-width: 647px) {
+  .app-background {
+    transform: translateY(-150px);
+  }
+  .messages-container {
+    color: black;
+  }
+}
+@media (max-width: 335px) {
+  .app-background {
+    transform: translateY(-240px);
+  }
+}
+@media (max-width: 270px) {
+  .app-background {
+    transform: translateY(-190px);
   }
 }
 .prev-link {
