@@ -14,15 +14,6 @@ const linkShortener = function(){
     input.addEventListener("input", function checkLink(){
         buttonCanCopy = false
         checkButtonState()
-        if(isValidUrl(input.value)){
-            linkValidMessage.innerText = "Link is valid"
-        } 
-        else if(input.value == ""){
-            linkValidMessage.innerText = "Field is empty"
-        } 
-        else{
-            linkValidMessage.innerText = "Link is not valid"
-        }
     })
 
     //on button click executes shortening function
@@ -59,29 +50,26 @@ const linkShortener = function(){
 
     //sends link to API and passes the received data to the createRecord function
     function shortenLink(){
-        let link = input.value
+        let link = input.value.toString()
+        link = makeValidLink(link)
 
-        if(isValidUrl(link)){
-            fetch(`https://api.shrtco.de/v2/shorten?url=${link}`, {
-                /* to send data back to API: method specification, 
-                content type and body with json object are needed.
-                In this case we don't need to send anything to API
-                
-                method: 'POST',
-                headers: {
-                    'Content-Type' : 'application/json'
-                },
-                body: JSON.stringify({
-                    key: 'value',
-                    etc: 'etc'
-                }) */
-            })
-                .then(res => res.json())                                        //first convert the data from json string to js object
-                .then(data => createRecord(data.result.full_short_link, link))          //then pass the received data to the function 
-                .catch(error => console.log(error))                             //catch any errors
-        } else{
-            return
-        }
+        fetch(`https://api.shrtco.de/v2/shorten?url=${link}`, {
+            /* to send data back to API: method specification, 
+            content type and body with json object are needed.
+            In this case we don't need to send anything to API
+            
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                key: 'value',
+                etc: 'etc'
+            }) */
+        })
+            .then(res => res.json())                                        //first convert the data from json string to js object
+            .then(data => createRecord(data.result.full_short_link, link))          //then pass the received data to the function 
+            .catch(error => console.log(error))                             //catch any errors
     }
 
     //alternative method of handling promises/api fetch
@@ -103,6 +91,13 @@ const linkShortener = function(){
         else{
             return
         }
+    }
+
+    function makeValidLink(link){
+        if (!/^https?:\/\//i.test(link)) {
+            link = 'http://' + link;
+        }
+        return link
     }
 
 
@@ -295,19 +290,6 @@ const linkShortener = function(){
         }
     }
 
-    //check whether entered url is valid
-    const isValidUrl = function(urlString){
-		let url;
-        // if urlString argument is not a valid URL, code with throw an error that will be catched and return false
-		try { 
-	      	url = new URL(urlString);   
-	    }
-	    catch(error){ 
-	      return false; 
-	    }
-        // if the protocol is http/https it will return true
-	    return url.protocol === "http:" || url.protocol === "https:"; 
-	}
 
     //after some time change message back to it's normal value
     function returnPreviousMesage() {
