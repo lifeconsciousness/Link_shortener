@@ -1,8 +1,4 @@
 
-*{
-   //outline: 1px solid greenyellow;
-}
-
 body{
     margin: 0;
     padding: 0;
@@ -10,7 +6,6 @@ body{
     justify-content: center;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-
 
 .shortener-container{
     max-width: 100%;
@@ -48,13 +43,11 @@ body{
 }
 
 .bg-image{
-    //background-image: url('../img/stacked-waves-1.svg');
     background-image: url('./img/stacked-waves-1.svg');
-    //z-index: 300;
 }
 
 
-
+///////////////shortener input field, button and message/////////////////
 
 .input-and-btn{
     margin-bottom: 1.3em;
@@ -95,14 +88,17 @@ body{
 .messages-container{
     display: flex;
     font-size: 1.2em;
-    justify-content: space-between;
-    //color: rgb(42, 38, 38);
+    justify-content: center;
     color: rgb(255, 247, 251);
 }
 
 .message{
     margin-bottom: .3em;
 }
+
+
+
+///////////////////links history containers/////////////////////////
 
 .all-links-container{
     word-wrap: break-all;
@@ -133,9 +129,24 @@ body{
     box-shadow: 6px 7px 11px rgba(0, 0, 0, 0.275);
 }
 
-.prev-link{
-    cursor: pointer;
+
+
+
+///////////////tablet responsive design//////////////////
+
+@media (min-width: 400px) and (max-width:900px){
+    .app-background{
+        aspect-ratio: 900/1000;
+        transform: translateY(-200px);
+    }
+    h2{
+        box-shadow: 0px 0px 11px rgba(0, 0, 0, 0) !important;
+        margin-bottom: 0em;
+    }
 }
+
+
+///////////////phone responsive design//////////////////
 
 @media (max-width: 400px)  {
     .prev-link-and-result{
@@ -186,16 +197,10 @@ body{
     }
     
 }
-@media (min-width: 400px) and (max-width:900px){
-    .app-background{
-        aspect-ratio: 900/1000;
-        transform: translateY(-200px);
-    }
-    h2{
-        box-shadow: 0px 0px 11px rgba(0, 0, 0, 0) !important;
-        margin-bottom: 0em;
-    }
-}
+
+
+///////////////small phone responsive design//////////////////
+
 @media (max-width: 290px)  {
     .prev-link-and-result{
         margin: 0 0.7em;
@@ -210,7 +215,6 @@ body{
 
     .trashBin{
         width: 20px !important;
-        //margin-left: 5px;
         margin-right: 0px;
     }
     .date{
@@ -223,6 +227,10 @@ body{
     }
     
 }
+
+
+////////////media queries to keep background on its place///////////
+
 @media (min-width: 400px) and (max-width:647px){
     .app-background{
         transform: translateY(-150px);
@@ -242,8 +250,12 @@ body{
     }
 }
 
+
+///////////////////inside of a link history record containers////////////////////
+
 .prev-link{
-    //margin-right: 2em;
+    cursor: pointer;
+    margin-right: 2em;
     margin-bottom: .3em;
     opacity: 0.6;
 }
@@ -284,6 +296,10 @@ body{
     margin: 0;
     margin-left: .54em;
 }
+
+
+
+/////////////adding and deleting record animation///////////////
 
 .container-animation{
     animation: containerAnimation 0.8s ease-in-out forwards;

@@ -79,15 +79,11 @@ body {
 .messages-container {
   display: flex;
   font-size: 1.2em;
-  justify-content: space-between;
+  justify-content: center;
   color: rgb(255, 247, 251);
 }
 
 .message {
-  margin-bottom: 0.3em;
-}
-
-.linkValid {
   margin-bottom: 0.3em;
 }
 
@@ -120,10 +116,16 @@ body {
   box-shadow: 6px 7px 11px rgba(0, 0, 0, 0.275);
 }
 
-.prev-link {
-  cursor: pointer;
+@media (min-width: 400px) and (max-width: 900px) {
+  .app-background {
+    aspect-ratio: 900/1000;
+    transform: translateY(-200px);
+  }
+  h2 {
+    box-shadow: 0px 0px 11px rgba(0, 0, 0, 0) !important;
+    margin-bottom: 0em;
+  }
 }
-
 @media (max-width: 400px) {
   .prev-link-and-result {
     margin: 0 0.7em;
@@ -171,16 +173,6 @@ body {
     margin-bottom: 0em;
   }
 }
-@media (min-width: 400px) and (max-width: 900px) {
-  .app-background {
-    aspect-ratio: 900/1000;
-    transform: translateY(-200px);
-  }
-  h2 {
-    box-shadow: 0px 0px 11px rgba(0, 0, 0, 0) !important;
-    margin-bottom: 0em;
-  }
-}
 @media (max-width: 290px) {
   .prev-link-and-result {
     margin: 0 0.7em;
@@ -224,6 +216,8 @@ body {
   }
 }
 .prev-link {
+  cursor: pointer;
+  margin-right: 2em;
   margin-bottom: 0.3em;
   opacity: 0.6;
 }

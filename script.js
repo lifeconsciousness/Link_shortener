@@ -18,9 +18,6 @@ const linkShortener = function(){
 
     //on button click executes shortening function
     shortenBtn.addEventListener("click", function(){
-        if(input.value == ""){
-            linkValidMessage.innerText = "Field is empty"
-        } 
         if(input.value.includes("shrtco.de")){
             linkValidMessage.innerText = "You can't make this link shorter"
         } 
@@ -30,7 +27,7 @@ const linkShortener = function(){
             returnPreviousMesage()
             return
         } else{
-            shortenLink()           //both functions can be used
+            shortenLink()         //both functions can be used
             //shortenLinkAsync()
         }
         message.innerText = "Click on the link to copy it "
@@ -72,7 +69,7 @@ const linkShortener = function(){
             .catch(error => console.log(error))                             //catch any errors
     }
 
-    //alternative method of handling promises/api fetch
+    //alternative method of handling promises
     async function shortenLinkAsync(){
         let link = input.value
 
@@ -93,6 +90,7 @@ const linkShortener = function(){
         }
     }
 
+    //adds https protocol to the link if needed
     function makeValidLink(link){
         if (!/^https?:\/\//i.test(link)) {
             link = 'http://' + link;
@@ -160,24 +158,7 @@ const linkShortener = function(){
         localStorage.setItem(HISTORY_OBJECT_LOCAL_STORAGE_KEY, JSON.stringify(historyElementsArray))
     }
 
-
-
-    /*function addTodoTask(text) {
-        if (text && text != ' ') {
-            let toDo = `<li class="todoitem" data-sort="${addCounter}">
-            <input type="checkbox"  class="todo" name="todo" value="todo">
-            <span class="todo-text">${text} <div class="delete"></div></span>
-            </li>`
     
-            addCounter++;
-    
-            todoslist.innerHTML += toDo;
-    
-            todoslist.addEventListener('click', lineThrough);
-    
-        }
-    } */
-
     //first the function clears links container, then creates DOM elements and assings array objects values to them
     function render(){
         clearElement(linksContainer)
