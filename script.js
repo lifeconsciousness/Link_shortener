@@ -181,12 +181,14 @@ const linkShortener = function(){
             prevLink.classList.add("prev-link")
             prevLink.innerText = historyElementsArray[i].longLink
             prevLink.addEventListener('click', copyText)
+            prevLink.addEventListener('touchend', copyText)
             bothLinks.appendChild(prevLink)
 
             let resLink = document.createElement("div")
             resLink.classList.add("result-link")
             resLink.innerText = historyElementsArray[i].shortLink
             resLink.addEventListener('click', copyText)
+            resLink.addEventListener('touchend', copyText)
             bothLinks.appendChild(resLink)
 
             let dateAndDelete = document.createElement("div")
@@ -240,14 +242,13 @@ const linkShortener = function(){
 
     //searches for the DOM element higher in ierarchy
     function upTo(el, tagName) {
-        //tagName = tagName.toLowerCase();
       
         while (el && el.parentNode) {
-          el = el.parentNode;
-          //if (el.tagName && el.tagName.toLowerCase() == tagName) {
-          if (el.classList.contains(tagName)) {
+            el = el.parentNode;
+            
+            if (el.classList.contains(tagName)) {
             return el;
-          }
+            }
         }
         return null
     }
