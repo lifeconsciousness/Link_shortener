@@ -133,7 +133,7 @@ const linkShortener = function(){
         if(dateObj.getMonth()<=9){ zeroBeforeMonths = "0"}
         else { zeroBeforeMonths = ""}
 
-        currentTime = `${dateObj.getHours()}${zeroBeforeMinutes}${dateObj.getMinutes()}\n${dateObj.getDay()}.${zeroBeforeMonths}${dateObj.getMonth()}.${dateObj.getFullYear().toString().substring(2)}`
+        currentTime = `${dateObj.getHours()}${zeroBeforeMinutes}${dateObj.getMinutes()}\n${dateObj.getDate()}.${zeroBeforeMonths}${dateObj.getMonth()+1}.${dateObj.getFullYear().toString().substring(2)}`
 
         return currentTime
     }
